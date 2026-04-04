@@ -60,7 +60,7 @@ export default function TransactionsSection() {
 
   //  Add
   const handleAdd = async (data: TransactionInput) => {
-    await fetch("http://localhost:5000/transactions", {
+    await fetch(`${API_URL}/transactions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +77,7 @@ export default function TransactionsSection() {
 
   //  Delete
   const deleteTransaction = async (id: string) => {
-    await fetch(`http://localhost:5000/transactions/${id}`, {
+    await fetch(`${API_URL}/transactions/${id}`, {
       method: "DELETE",
     });
 

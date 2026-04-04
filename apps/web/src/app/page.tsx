@@ -1,12 +1,9 @@
 "use client";
 import ChartsSection from "@/components/ChartsSection";
-import Sidebar from "@/components/Sidebar";
+
 import SummaryCards from "@/components/SummaryCard";
 import Topbar from "@/components/Topbar";
 import TransactionsSection from "@/components/TransactionSection";
-import { useRole } from "@/context/RoleContext";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function Home() {
   return (
