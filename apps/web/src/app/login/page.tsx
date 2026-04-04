@@ -8,8 +8,16 @@ export default function LoginPage() {
   const router = useRouter();
 
   const handleLogin = (role: "admin" | "viewer") => {
+    // ✅ Save in localStorage FIRST
+    localStorage.setItem("role", role);
+
+    // ✅ Update context
     setRole(role);
-    router.push("/");
+
+    // ✅ Small delay ensures state sync
+    setTimeout(() => {
+      router.push("/");
+    }, 100);
   };
 
   return (
