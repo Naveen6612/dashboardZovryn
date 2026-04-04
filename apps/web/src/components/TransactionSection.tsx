@@ -28,7 +28,6 @@ export default function TransactionsSection() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [filter, setFilter] = useState<"all" | "income" | "expense">("all");
-  const [mounted, setMounted] = useState(false);
 
   const { role } = useRole();
   const isAdmin = role === "admin";

@@ -1,54 +1,63 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 type Role = "admin" | "viewer";
 
 type RoleContextType = {
   role: Role;
   setRole: (role: Role) => void;
-  mounted: boolean;
 };
 
-const RoleContext = createContext<RoleContextType | null>(null);
+const RoleContext = createContext<RoleContextType>({
+  role: "viewer",
+  setRole: () => {},
+});
+
+function getRoleFromCookie(): Role | null {
+  if (typeof document === "undefined") return null;
+
+  const match = document.cookie.match(/(?:^|; )role=(admin|viewer)(?:;|$)/);
+  return match ? (match[1] as Role) : null;
+}
+
+function setRoleCookie(role: Role) {
+  document.cookie = `role=${role}; path=/; sameSite=lax`;
+}
+
+function getInitialRole(): Role {
+  if (typeof window === "undefined") {
+    return "viewer";
+  }
+
+  const saved = localStorage.getItem("role") as Role | null;
+  const cookieRole = getRoleFromCookie();
+
+  if (saved === "admin" || saved === "viewer") {
+    return saved;
+  }
+
+  if (cookieRole === "admin" || cookieRole === "viewer") {
+    return cookieRole;
+  }
+
+  return "viewer";
+}
 
 export function RoleProvider({ children }: { children: React.ReactNode }) {
-  const [role, setRoleState] = useState<Role>("viewer");
-  const [mounted, setMounted] = useState(false);
+  const [role, setRoleState] = useState<Role>(getInitialRole);
 
-  // Load from localStorage AFTER mount
-  useEffect(() => {
-    function loadRole() {
-      const savedRole = localStorage.getItem("role") as Role | null;
-
-      if (savedRole) {
-        setRoleState(savedRole);
-      }
-    }
-
-    loadRole();
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-  }, []);
-
-  // ✅ Update + persist
   const setRole = (newRole: Role) => {
     setRoleState(newRole);
     localStorage.setItem("role", newRole);
+    setRoleCookie(newRole);
   };
 
   return (
-    <RoleContext.Provider value={{ role, setRole, mounted }}>
+    <RoleContext.Provider value={{ role, setRole }}>
       {children}
     </RoleContext.Provider>
   );
 }
 
-// Hook
-export function useRole() {
-  const context = useContext(RoleContext);
-  if (!context) {
-    throw new Error("useRole must be used within RoleProvider");
-  }
-  return context;
-}
+export const useRole = () => useContext(RoleContext);
