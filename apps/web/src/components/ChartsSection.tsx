@@ -38,7 +38,7 @@ export default function ChartsSection() {
 
   if (!mounted) return null;
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 h-[300px] w-full">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 w-full">
       {/*  Line Chart */}
       <div className="lg:col-span-2 bg-white border border-gray-200 rounded-xl p-4 sm:p-5">
         <h3 className="text-sm font-medium text-gray-700 mb-3 sm:mb-4">
@@ -63,7 +63,6 @@ export default function ChartsSection() {
           </ResponsiveContainer>
         </div>
       </div>
-
       {/*  Pie Chart */}
       <div className="bg-white border border-gray-200 rounded-xl p-4 sm:p-5 flex flex-col">
         <h3 className="text-sm font-medium text-gray-700 mb-3 sm:mb-4">
