@@ -15,8 +15,8 @@ export default function Home() {
         <SummaryCards />
         <ChartsSection />
         <TransactionsSection />
-        <Analytics />
       </div>
+      <Analytics />
     </div>
   );
 }

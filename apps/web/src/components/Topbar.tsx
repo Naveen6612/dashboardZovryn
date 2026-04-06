@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useRole } from "@/context/RoleContext";
 
 export default function Topbar() {
