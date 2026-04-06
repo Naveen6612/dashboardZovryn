@@ -4,6 +4,7 @@ import ChartsSection from "@/components/ChartsSection";
 import SummaryCards from "@/components/SummaryCard";
 import Topbar from "@/components/Topbar";
 import TransactionsSection from "@/components/TransactionSection";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
         <SummaryCards />
         <ChartsSection />
         <TransactionsSection />
+        <Analytics />
       </div>
     </div>
   );
